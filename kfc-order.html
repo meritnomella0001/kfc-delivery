@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KFC Style Shawarma Order</title>
+  <style>
+    /* Global Styles */
+    body {
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #fff5f0;
+      color: #333;
+    }
+
+    .container {
+      max-width: 500px;
+      margin: 50px auto;
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+      overflow: hidden; /* Prevent overflow */
+      position: relative;
+    }
+
+    h1 {
+      text-align: center;
+      color: #d91f26; /* KFC red */
+      font-size: 28px;
+      margin: 20px 0;
+    }
+
+    .image-wrapper {
+      position: relative;
+      width: 100%;
+      padding-top: 75%; /* Aspect ratio 4:3 */
+      overflow: hidden;
+    }
+
+    img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover; /* Maintain aspect ratio */
+      border-bottom: 5px solid #d91f26; /* Decorative border */
+    }
+
+    p {
+      text-align: center;
+      font-size: 18px;
+      margin: 10px 0;
+    }
+
+    .delivery {
+      text-align: center;
+      font-size: 16px;
+      color: #555;
+      margin-bottom: 20px;
+    }
+
+    .btn {
+      display: block;
+      width: 100%;
+      background-color: #d91f26;
+      color: white;
+      padding: 15px 0;
+      border: none;
+      border-radius: 12px;
+      font-size: 18px;
+      cursor: pointer;
+      transition: 0.3s;
+      text-align: center;
+    }
+
+    .btn:hover {
+      background-color: #b71c1c;
+    }
+
+    .loader {
+      border: 6px solid #f3f3f3;
+      border-top: 6px solid #d91f26;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      animation: spin 1s linear infinite;
+      margin: 20px auto;
+      display: none;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .payment-section {
+      display: none;
+      text-align: center;
+    }
+
+    .wallet {
+      background: #f1f1f1;
+      padding: 12px;
+      border-radius: 8px;
+      word-break: break-all;
+      margin: 10px 0;
+      font-family: monospace;
+      font-size: 16px;
+    }
+
+    .copy-btn {
+      display: inline-block;
+      margin-top: 10px;
+      background: #d91f26;
+      color: white;
+      padding: 10px 15px;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .copy-btn:hover {
+      background: #b71c1c;
+    }
+
+    .instruction {
+      margin: 15px 0;
+      font-size: 16px;
+      color: #333;
+    }
+
+    .pay-btn {
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+
+<!-- Order Page -->
+<div class="container" id="order-page">
+  <h1>KFC Shawarma Order</h1>
+  <div class="image-wrapper">
+    <img src="https://images.unsplash.com/photo-1601924928374-8be2145f3bfc?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxMTc3M3wwfDF8c2hhd2FybWF8fHx8fHx8MTY5Mzg2OTM4Nw&ixlib=rb-4.0.3&q=80&w=400" alt="Delicious Shawarma">
+  </div>
+  <p>Price: $30 worth of Ethereum</p>
+  <p>Delivery Duration: 1 week steady delivery</p>
+  <p class="delivery">Day Of Initial Delivery: Starting Tomorrow morning</p>
+  <button class="btn" id="order-btn">Order Now</button>
+  <div class="loader" id="loader"></div>
+</div>
+
+<!-- Payment Page -->
+<div class="container payment-section" id="payment-page">
+  <h1>Pay for Your Shawarma</h1>
+  <p class="instruction">Transfer <strong>$30 worth of Ethereum</strong> to the wallet below:</p>
+  <div class="wallet" id="eth-wallet">0x1EC3a7FFDcD1862746e61Cd84bF65e4Ae817eCF5</div>
+  <div class="copy-btn" id="copy-btn">Copy Wallet Address</div>
+  <p class="instruction">Once you have your Ethereum ready, click the button below to pay:</p>
+  <button class="btn pay-btn" id="pay-btn">Pay Now</button>
+</div>
+
+<script>
+  const orderBtn = document.getElementById('order-btn');
+  const loader = document.getElementById('loader');
+  const orderPage = document.getElementById('order-page');
+  const paymentPage = document.getElementById('payment-page');
+  const copyBtn = document.getElementById('copy-btn');
+  const ethWallet = document.getElementById('eth-wallet');
+  const payBtn = document.getElementById('pay-btn');
+
+  // Order Now click
+  orderBtn.addEventListener('click', () => {
+    orderBtn.style.display = 'none';
+    loader.style.display = 'block';
+    setTimeout(() => {
+      orderPage.style.display = 'none';
+      paymentPage.style.display = 'block';
+    }, 3000);
+  });
+
+  // Copy Ethereum wallet
+  copyBtn.addEventListener('click', () => {
+    navigator.clipboard.writeText(ethWallet.textContent)
+      .then(() => {
+        copyBtn.textContent = "Copied!";
+        setTimeout(() => { copyBtn.textContent = "Copy Wallet Address"; }, 2000);
+      });
+  });
+
+  // Pay Now button redirects to Ethereum buy page in Turkey
+  payBtn.addEventListener('click', () => {
+    window.location.href = "https://www.paribu.com"; // Turkish ETH buy platform
+  });
+</script>
+
+</body>
+</html>
